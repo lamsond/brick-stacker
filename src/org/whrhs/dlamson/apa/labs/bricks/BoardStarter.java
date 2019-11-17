@@ -37,7 +37,8 @@ public class BoardStarter extends JPanel{
 		//drawWall(g2d);
 		//drawRandom(g2d);
 		//drawSteps(g2d);
-		drawPyramid(g2d);
+		//drawPyramid(g2d);
+		//freeStyle(g2d);
 		
 	}
 	

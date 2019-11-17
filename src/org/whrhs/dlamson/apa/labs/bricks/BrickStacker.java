@@ -14,7 +14,7 @@ public class BrickStacker extends JFrame{
 	private void initUI() {
 		board = new Board();
 		add(board);
-		setSize(board.WIDTH + 15, board.HEIGHT + 38);
+		setSize(Board.WIDTH + 15, Board.HEIGHT + 38);
 		setTitle("Lab 016");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);

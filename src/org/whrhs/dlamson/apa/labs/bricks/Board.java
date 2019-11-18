@@ -33,13 +33,83 @@ public class Board extends JPanel{
 		
 		/* I kept them as comments because you can't call them all at once with JPanel*/
 		
-		drawPyramid(g2d);
+		//drawPyramid(g2d);
 		//drawWall(g2d);
 		//drawRandom(g2d);
 		//drawSteps(g2d);
-		//drawFreestyle(g2d);
+		d(g2d);
 	}
 	
+	
+	
+	private void randomAll(Graphics2D g){
+		for(int x = 0; x < 20; x++)
+		{
+			for(int y = 0; y < 20; y++)
+			{
+				drawBrick(g, (int)(Math.random()*1000), (int)(Math.random()*1000));
+			}
+		}
+		
+	}
+	
+	private void d(Graphics2D g) {
+		for(int i = 0; i < 1000; i += 80) {
+			for(int j = 0; j < 500; j += 50){
+				drawBrick(g, i, j);
+			}
+		}
+	}
+		
+	
+	private void freeBoi(Graphics2D g){
+		int b = 0;
+		for(int k = 0; k<500; k+=25)	{
+			for(int i = 500; i<1000; i+=50){
+				drawBrick(g, i-b, k);
+			}
+		b+=25;
+		}
+		
+	}
+	private void brice(Graphics2D g)
+	{
+		int steps = 475;
+		int number = 0;
+		for(int x=0; x<10; x++){
+			drawBrick (g,steps,number);
+			for(int y=0; y<=x; y++)
+			{
+				drawBrick(g,steps+y*50,number);
+			}
+			steps-=25;
+			number+=25;
+		}
+		
+		int steps2 = 225;
+		int number2 = 250;
+		for(int x=0; x<10; x++){
+			drawBrick (g,steps2,number2);
+			for(int y=0; y<=x; y++)
+			{
+				drawBrick(g,steps2,number2);
+			}
+			steps2+=25;
+			number2+=25;
+		}
+		
+		int steps3 = 500;
+		int number3 = 475;
+		for(int x=20; x>10; x--){
+			drawBrick (g,steps3,number3);
+			for(int y=20; y>=x; y--)
+			{
+				drawBrick(g,steps3,number3);
+			}
+			steps3+=25;
+			number3-=25;
+		}
+	}
 	private void drawBrick(Graphics2D g, int x, int y) {
 		g.setColor(brickColor);
 		g.fillRect(x, y, BRICK_WIDTH, BRICK_HEIGHT);
@@ -76,44 +146,113 @@ public class Board extends JPanel{
     }
 
     
-    private void drawPyramid(Graphics2D g) 
+    private void drawPyramid(Graphics2D g) {
+		// challenge #4
+		int y = 0;
+		int bricksInARow = 1;
+		int rowStart = 475;
+		for(int j = 0; j < 20; j++) {
+			int x = rowStart;
+			for(int i = 0; i  < bricksInARow; i++) {
+				drawBrick(g, x, y);
+				x+=50; // steps to right
+			}
+			y+= 25; //goes down to next row
+			bricksInARow++;
+			rowStart -= 25;
+		}
+	}
+	
+    private void freestyle(Graphics2D g)
 	{
-		int x = 1;
-		for (int j = 0; j <= 500; j += 25)
+		for (int x = 0; x < 1000; x = x + 50)
 		{
-			if (x%2 != 0)
+			for (int y = x; y < 500; y = y + 25)
 			{
-				for (int i = 1 ; i <= x ; i++)
-				{
-					int capx = 475;
-					capx -= 25*x;
+				drawBrick(g, x, y);
+			}
+		}
+	}
 
-					drawBrick(g, (capx + 50 * i), j);
-					
-				}
-				
-			}
-			else 
-			{
-				for (int k = 1 ; k <= x ; k++)
-				{
-					int cap2 = 475;
-					cap2 -= 25*x;
-					drawBrick(g, cap2 + 50 * k, j);
-				}
-			}
-			x++;
-		}
-	}
-	private void drawFreestyle(Graphics2D g) {
-		for(int i = 0; i<=950; i= i+100)
+    
+    private void checkerboard(Graphics2D g)
+	{
+		int x =0;
+		int y=0;
+		int z=1;
+		for(int g1 =0; g1<=20; g1++)
 		{
-			for(int j = 0; j<=475; j=j+50)
+			for(int g2=0; g2<=20; g2++)
 			{
-				drawBrick(g, i ,j);
+				if(z%2==0)
+				{
+				drawBrick(g,x,y);
+				}
+				z++;
+				y+=25;
 			}
+			x+=50;
+			y=0;
 		}
 	}
+	
+    private void randomBars(Graphics2D g)
+	{
+		int WX = 0;
+		int WY = 0;
+		for(int i = 0; i < 20; i++)
+		{
+			for(int l = 0; l < 20; l++)
+			{
+				if(Math.random() >= 0.5)
+				{
+					drawBrick(g, WX, WY);
+					WX += 50;
+				}
+			}
+			WX = 0;
+			WY += 25;
+		}
+	}
+    
+    private void unionJack(Graphics2D g) {
+    	int x = 0; int y = 0;
+    	int x1 = WIDTH - BRICK_WIDTH; int y1 = 0;
+    	int x2 = (WIDTH / 2) - BRICK_WIDTH; int y2 = 0;
+    	int x3 = 0; int y3 = (HEIGHT / 2) - BRICK_HEIGHT;
+    	
+    	for (int i = 0; i < HEIGHT / BRICK_HEIGHT; i++) {
+    		drawBrick(g, x, y);
+    		x += BRICK_WIDTH;
+    		y += BRICK_HEIGHT;
+    	}
+    	
+    	for (int j = 0; j < HEIGHT / BRICK_HEIGHT; j++) {
+    		drawBrick(g, x1, y1);
+    		x1 -= BRICK_WIDTH;
+    		y1 += BRICK_HEIGHT;
+    	}
+    	
+    	for (int l = 0; l < HEIGHT / BRICK_HEIGHT; l++) {
+    		drawBrick(g, x2, y2);
+    		drawBrick(g, x2 + BRICK_WIDTH, y2);
+    		y2 += BRICK_HEIGHT;
+    	}
+    	
+    	for (int s = 0; s < 2; s++) {
+    		for (int r = 0; r < WIDTH / BRICK_WIDTH; r++) {
+    			drawBrick(g, x3, y3);
+    			x3 += BRICK_WIDTH;
+    		}
+    		x3 = 0;
+    		y3 += BRICK_HEIGHT;
+    	}
+    	
+    	
+    	
+    	
+    	
+    	}
 	
 	private void drawDiamond(Graphics2D g) {
 		for (int i = 0; i<=10; i++){
